@@ -1,0 +1,211 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Ubuntu';
+}
+body{
+	background-color:rgb(199, 27, 64);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.form-sign{
+	background: rgba(0, 0, 0, .5);
+	max-width: 500px;
+	margin: 30px auto;
+	border-radius: 15px;
+	overflow: hidden;
+}
+.form-sign header{
+	color: #fff;
+	padding: 20px;
+}
+.form-sign header h1{
+	padding-top: 50px;
+}
+.form-sign header p{
+	padding-bottom: 50px;
+}
+.form-sign header a{
+	color: #fff;
+}
+.form-sign .info{
+	background: rgb(255, 255, 255);
+	color: #000;
+	text-align: center;
+	position: relative;
+	width: 100%;
+	height: 375px;
+}
+.form-sign .info h2{
+	padding: 20px 0;
+}
+.form-sign .info .entrada{
+	max-width: 400px;
+	margin: 15px auto;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+}
+.form-sign .info .entrada .campo{
+	width: 90%;
+	padding: 10px;
+	outline: none;
+	border: none;
+	background: transparent;
+}
+.btn-sign{
+	display: inline-block;
+	margin: 15px 0;
+	padding: 10px 15px;
+	border-radius: 50px;
+	border: none;
+	background-color: rgb(199, 27, 64);
+	color: #fff;
+}
+.btn-sign:hover{
+	background-color: #000;
+}
+form{
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.sign-up{
+	opacity: 1;
+	z-index: 10;
+}
+.sign-in{
+	opacity: 0;
+}
+
+.mostrar{
+	animation: .3s mostrar forwards;
+}
+.salir{
+	animation: .3s salir forwards;
+}
+.msj{
+	width: 150px;
+	text-align: center;
+	margin: auto;
+	color: rgb(104, 15, 15);
+	padding-top: 20px;
+}
+@keyframes mostrar{
+	0%{
+		opacity: 0;
+		left: -100%;
+	}
+	100%{
+		opacity: 1;
+		left: 0;
+	}
+}
+
+@keyframes salir{
+	0%{
+		opacity: 1;
+		left: 0;
+	}
+	100%{
+		opacity: 0;
+		left: 100%;
+	}
+}
+</style>
+<title>Registro de Usuarios</title>
+<body>
+	<div class="container">
+		<div class="form-sign">
+			<header>
+				<h1>Bienvenido a Registro y control de trabajos de Titulación</h1>
+				<a href="#" onclick="cambiar(this)">Iniciar Sesión</a>
+			</header>
+
+			<div class="info">
+				<form action="" class="sign-in" id="sign-in">
+					<h2>INICIAR SESION</h2>
+					
+					<div class="entrada">
+						<i class="fas fa-envelope"></i>
+						<input type="text" placeholder="Correo Electrónico" class="campo" id="email">
+					</div>
+					<div class="entrada">
+						<i class="fas fa-key"></i>
+						<input type="password" placeholder="Contraseña" class="campo" id="pass">
+					</div>
+					<input type="submit" name="iniciar" value="Iniciar Sesión" class="btn-sign">
+					<p class="msj" id="msj"></p>
+				</form>
+				<form action="" class="sign-up" id="sign-up">
+					<h2>CREAR CUENTA</h2>
+					<div class="entrada">
+						<i class="fas fa-user"></i>
+						<input type="text" placeholder="Nombre" class="campo" id="nombre">
+					</div>
+					<div class="entrada">
+						<i class="fas fa-envelope"></i>
+						<input type="email" placeholder="Correo Electrónico" class="campo" id="email">
+					</div>
+					<div class="entrada">
+						<i class="fas fa-key"></i>
+						<input type="password" placeholder="Contraseña" class="campo" id="pass">
+					</div>
+
+					<input type="submit" name="crear" value="Crear Cuenta" class="btn-sign" >
+					<p class="msj" id="msj"></p>
+				</form>
+			</div>
+		</div>
+	</div>
+    <script>
+        var entrar = 1;
+function cambiar(link){
+	if(entrar==0){
+		document.getElementById("sign-in").className = "sign-in salir";
+		document.getElementById("sign-up").className = "sign-up mostrar";
+		entrar = 1;
+		link.innerHTML = "Iniciar Sesión";
+	}
+	else{
+		document.getElementById("sign-in").className = "sign-in mostrar";
+		document.getElementById("sign-up").className = "sign-up salir";
+		entrar = 0;
+		link.innerHTML = "Crear Cuenta";	
+	}
+}
+
+document.getElementById('sign-in').addEventListener('submit', (e) => {
+    e.preventDefault()
+    email = document.getElementById('email').value;
+    pass = document.getElementById('pass').value;
+	
+    const parrafo = document.getElementById("msj")
+    expReguEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    expRegPass = /^.{4,12}$/;
+
+    let msj = ""
+    let ingreso =false
+
+    parrafo.innerHTML =""
+
+    if(!expReguEmail.test(email)){
+        msj += 'Aviso <br>'
+        msj += '*Email invalido <br>'
+        ingreso= true
+    }
+    if(!expRegPass.test(pass)){
+        msj += '*Contraseña Invalida <br> '
+        ingreso= true
+    }
+    
+    if(ingreso){
+        parrafo.innerHTML = msj
+    }else{
+        location.href="/TT/src/app/paginaprincipal/paginaprincipal.component.html";
+    }
+})
+    </script>

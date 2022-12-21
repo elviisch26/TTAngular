@@ -1,0 +1,175 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Ubuntu';
+}
+body{
+	background-color:rgb(199, 27, 64);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.formulario{
+	background: rgba(0, 0, 0, .5);
+	max-width: 500px;
+	margin: 30px auto;
+	border-radius: 15px;
+	overflow: hidden;
+}
+.formulario header{
+	color: #fff;
+	padding: 20px;
+}
+.formulario header h1{
+	padding-top: 50px;
+}
+.formulario .campos{
+	background: rgb(255, 255, 255);
+	color: #000;
+	text-align: center;
+	position: relative;
+	width: auto;
+	height: auto;
+}
+.formulario .campos .registro{
+	max-width: 400px;
+	margin: 15px auto;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+}
+.formulario .campos .registro .use{
+	width: 90%;
+	padding: 10px;
+	outline: none;
+	border: none;
+	background: transparent;
+}
+.btn-reg{
+	display: inline-block;
+	margin: 15px 0;
+	padding: 10px 15px;
+	border-radius: 50px;
+	border: none;
+	background-color: rgb(199, 27, 64);
+	color: #fff;
+}
+.btn-reg:hover{
+	background-color: #000;
+}
+.msj{
+	width: 150px;
+	text-align: center;
+	margin: auto;
+	color: rgb(104, 15, 15);
+	padding-top: 20px;
+}
+</style>
+<title>Registro de Trabajo de Titulación</title>
+<div class="formulario" >
+    <header>
+        <h1><b>Registro de Trabajo de Titulación</b></h1>
+    </header>
+    <div class="campos">
+        <form action="" id="formulario">
+        <div class="registro">
+            <input type="text" placeholder="Nombre" class="use" id="nombre">
+        </div>
+        <div class="registro">
+            <input type="text" placeholder="Apellido" class="use" id="apellido">
+        </div>
+        <div class="registro">
+            <input type="text" placeholder="Número de Cédula" class="use" id="cedula">
+        </div>
+        <div class ="registro">
+            <input type="text" placeholder="Universidad" class="use" id="uni">
+        </div>
+        <div class="registro">
+            <input type="text" placeholder="Facultad" class="use" id="facu">
+        </div>
+        <div class ="registro">
+            <input type="text" placeholder="Carrera" class="use" id="carrera">
+        </div>
+        <div class ="registro">
+            <input type="text" placeholder="Tema" class="use" id="tema">
+        </div>
+        <div class ="registro">
+            <input type="text" placeholder="Tutor" class="use" id="tutor">
+        </div>
+        <div class ="registro">
+            <input type="text" placeholder="Tipo de investigación" class="use" id="tipo">
+        </div>
+        <input type="submit" name="crear" value="Registrarse" class="btn-reg">
+        <p class="msj" id="msj"></p>
+    </form>
+    </div>
+</div>
+<script>
+    document.getElementById('formulario').addEventListener('submit', (e) => {
+    e.preventDefault()
+    nombre = document.getElementById('nombre').value;
+    apellido = document.getElementById('apellido').value;
+    cedula = document.getElementById('cedula').value;
+    uni = document.getElementById('uni').value;
+    facu = document.getElementById('facu').value;
+    carrera = document.getElementById('carrera').value;
+    tema = document.getElementById('tema').value;
+    tutor = document.getElementById('tutor').value;
+    tipo = document.getElementById('tipo').value;
+
+
+    const parrafo = document.getElementById("msj")
+    expReguTex = /^[a-zA-ZÀ-ÿ\s]{1,30}$/;
+    expRegNum = /^\d{10}$/;
+
+    let msj = ""
+    let ingreso =false
+
+    parrafo.innerHTML =""
+
+    if(!expReguTex.test(nombre)){
+        msj += 'Aviso <br>'
+        msj += '*Nombre Invalido <br>'
+        ingreso= true
+    }
+    if(!expReguTex.test(apellido)){
+        msj += '*Apellido Invalido <br> '
+        ingreso= true
+    }
+    if(!expRegNum.test(cedula)){
+        msj += '*Número Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(uni)){
+        msj += '*Campo Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(facu)){
+        msj += '*Campo Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(carrera)){
+        msj += '*Campo Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(tema)){
+        msj += '*Tema Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(tutor)){
+        msj += '*Campo Invalido <br> '
+        ingreso= true
+    }
+    if(!expReguTex.test(tipo)){
+        msj += '*Tipo Invalido <br> '
+        ingreso= true
+    }
+    if(ingreso){
+        parrafo.innerHTML = msj
+    }else{
+        location.href="/TT/src/app/impresion/impresion.component.html";
+
+    }
+})
+</script>
